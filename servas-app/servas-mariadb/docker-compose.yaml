@@ -4,7 +4,7 @@ services:
   db:
     image: mariadb:10.7.3
     restart: unless-stopped
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --bind-address=0.0.0.0
     environment:
       - MARIADB_ROOT_PASSWORD=${DB_PASSWORD}
       - MARIADB_USER=${DB_USERNAME}
@@ -12,7 +12,7 @@ services:
       - MARIADB_DATABASE=${DB_DATABASE}
     volumes:
       - servas-db-data:/var/lib/mysql
-
+      - ./my.cnf:/etc/mysql/my.cnf
   servas:
     image: beromir/servas
     container_name: servas
